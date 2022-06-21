@@ -1,0 +1,97 @@
+<h2>Validaciones Reactivas</h2>
+<hr />
+
+<div class="row">
+  <div class="col">
+    <form [formGroup]="formulario" (ngSubmit)="subirFormulario()">
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Nombre:</label>
+        <div class="col-sm-9">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Nombre del usuario"
+            formControlName="nombre"
+          />
+          <span *ngIf="campoNoValido('nombre')" class="form-text text-danger"
+            >Debe tener nombre y apellido</span
+          >
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Email:</label>
+        <div class="col-sm-9">
+          <input
+            type="email"
+            class="form-control"
+            placeholder="Email del usuario"
+            formControlName="email"
+          />
+          <span *ngIf="campoNoValido('email')" class="form-text text-danger"
+            >Email invalido</span
+          >
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Username:</label>
+        <div class="col-sm-9">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="usuario"
+            formControlName="userName"
+          />
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Password:</label>
+        <div class="col-sm-9">
+          <input
+            type="password"
+            class="form-control"
+            placeholder="Contraseña del usuario"
+            formControlName="password"
+          />
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Confirmar password:</label>
+        <div class="col-sm-9">
+          <input
+            type="password"
+            class="form-control"
+            placeholder="Confirmar contraseña"
+            formControlName="confirmarPassword"
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-primary float-end" type="submit">
+            Registrarse
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<span
+  >Valid?
+  <pre>{{ formulario.valid }}</pre>
+</span>
+<br />
+<span
+  >Email?
+  <pre>{{ formulario.controls["email"].errors | json }}</pre>
+</span>
+<br />
+<span
+  >Username?
+  <pre>{{ formulario.controls["userName"].errors | json }}</pre>
+</span>
