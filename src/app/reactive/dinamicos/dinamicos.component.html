@@ -1,0 +1,80 @@
+<h2>Reactivos - Dinámicos</h2>
+<hr />
+
+<form [formGroup]="formulario" (ngSubmit)="guardar()">
+  <div class="row mb-3">
+    <label class="col-sm-3 col-form-label">Nombre:</label>
+    <div class="col-sm-9">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Nombre"
+        formControlName="nombre"
+      />
+      <span class="form-text text-danger" *ngIf="validarCampo('nombre')"
+        >Este campo es obligatorio</span
+      >
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <label class="col-sm-3 col-form-label">Agregar</label>
+    <div class="col-sm-9">
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Agregar juego favorito"
+          [formControl]="nuevoFav"
+          (keypress.enter)="agregarFavorito()"
+        />
+        <button
+          class="btn btn-outline-primary"
+          (click)="agregarFavorito()"
+          [disabled]="formulario.invalid"
+        >
+          Agregar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <label class="col-sm-3 col-form-label">Favoritos:</label>
+    <div class="col-sm-9" formArrayName="favoritos">
+      <div
+        class="input-group mb-1"
+        *ngFor="let item of favoritosArr.controls; let i = index"
+      >
+        <input class="form-control" required [formControlName]="i" />
+        <button class="btn btn-outline-danger" (click)="borrar(i)">
+          Borrar
+        </button>
+      </div>
+      <span class="form-text text-danger" *ngIf=""
+        >Este campo es obligatorio</span
+      >
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <button
+        class="btn btn-primary float-end"
+        type="submit"
+        [disabled]="formulario.invalid"
+      >
+        Guardar
+      </button>
+    </div>
+  </div>
+</form>
+
+<span>Valid</span>
+<pre>{{ formulario.valid }}</pre>
+<br />
+<span>Value</span>
+<pre>{{ formulario.value | json }}</pre>
+<br />
+<span>Agregar juego</span>
+<pre>{{ nuevoFav.value | json }}</pre>
