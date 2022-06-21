@@ -30,3 +30,15 @@
 
 <h2 class="mt-3">Validaciones</h2>
 <hr />
+
+<ul class="list-group">
+  <li
+    *ngFor="let item of authMenu"
+    class="list-group-item pointer-event"
+    role="button"
+    routerLinkActive="active"
+    [routerLink]="[item.ruta]"
+  >
+    {{ item.texto }}
+  </li>
+</ul>
