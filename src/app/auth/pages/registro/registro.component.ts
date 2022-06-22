@@ -5,6 +5,7 @@ import {
   patronEmail,
 } from '../../../shared/validators/validaciones';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { EmailValidatorService } from '../../../shared/validators/email-validator.service';
 
 @Component({
   selector: 'app-registro',
@@ -19,7 +20,11 @@ export class RegistroComponent implements OnInit {
         [Validators.required, Validators.pattern(patronNombreYapellido)],
       ],
       userName: ['', [Validators.required, this.validator.noPuedeSerRepetido]],
-      email: ['', [Validators.required, Validators.pattern(patronEmail)]],
+      email: [
+        '',
+        [Validators.required, Validators.pattern(patronEmail)],
+        [this.emailValidator],
+      ],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmarPassword: ['', [Validators.required]],
     },
@@ -30,7 +35,8 @@ export class RegistroComponent implements OnInit {
 
   constructor(
     private formBuild: FormBuilder,
-    private validator: ValidatorService
+    private validator: ValidatorService,
+    private emailValidator: EmailValidatorService
   ) {}
 
   ngOnInit(): void {}
@@ -39,6 +45,18 @@ export class RegistroComponent implements OnInit {
     return (
       this.formulario.get(campo)?.invalid && this.formulario.get(campo)?.touched
     );
+  }
+
+  get errorMessage(): string {
+    const errors = this.formulario.get('email')?.errors;
+    if (errors?.['required']) {
+      return 'El email es requerido';
+    } else if (errors?.['pattern']) {
+      return 'El email no es valido';
+    } else if (errors?.['yaExiste']) {
+      return 'El email ya existe';
+    }
+    return '';
   }
 
   subirFormulario() {

@@ -28,9 +28,9 @@
             placeholder="Email del usuario"
             formControlName="email"
           />
-          <span *ngIf="campoNoValido('email')" class="form-text text-danger"
-            >Email invalido</span
-          >
+          <span *ngIf="campoNoValido('email')" class="form-text text-danger">{{
+            errorMessage
+          }}</span>
         </div>
       </div>
 
@@ -44,7 +44,7 @@
             formControlName="userName"
           />
           <span *ngIf="campoNoValido('userName')" class="form-text text-danger"
-            >El username no puede ser admin</span
+            >El username es requerido</span
           >
         </div>
       </div>
@@ -83,7 +83,11 @@
 
       <div class="row">
         <div class="col">
-          <button class="btn btn-primary float-end" type="submit">
+          <button
+            class="btn btn-primary float-end"
+            type="submit"
+            [disabled]="formulario.pending || formulario.invalid"
+          >
             Registrarse
           </button>
         </div>
@@ -95,6 +99,10 @@
 <span
   >Valid?
   <pre>{{ formulario.valid }}</pre>
+</span>
+<span
+  >Valid?
+  <pre>{{ formulario.status }}</pre>
 </span>
 <br />
 <span
