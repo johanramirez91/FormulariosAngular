@@ -43,6 +43,9 @@
             placeholder="usuario"
             formControlName="userName"
           />
+          <span *ngIf="campoNoValido('userName')" class="form-text text-danger"
+            >El username no puede ser admin</span
+          >
         </div>
       </div>
 
@@ -55,6 +58,9 @@
             placeholder="Contraseña del usuario"
             formControlName="password"
           />
+          <span *ngIf="campoNoValido('password')" class="form-text text-danger"
+            >La contraseña debe tener al menos 6 carácteres</span
+          >
         </div>
       </div>
 
@@ -67,6 +73,11 @@
             placeholder="Confirmar contraseña"
             formControlName="confirmarPassword"
           />
+          <span
+            *ngIf="campoNoValido('confirmarPassword')"
+            class="form-text text-danger"
+            >Las contraseñas deben ser iguales</span
+          >
         </div>
       </div>
 

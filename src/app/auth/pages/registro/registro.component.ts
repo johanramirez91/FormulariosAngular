@@ -4,12 +4,7 @@ import {
   patronNombreYapellido,
   patronEmail,
 } from '../../../shared/validators/validaciones';
-import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-  FormControl,
-} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-registro',
@@ -17,16 +12,21 @@ import {
   styleUrls: ['./registro.component.css'],
 })
 export class RegistroComponent implements OnInit {
-  formulario: FormGroup = this.formBuild.group({
-    nombre: [
-      '',
-      [Validators.required, Validators.pattern(patronNombreYapellido)],
-    ],
-    userName: ['', [Validators.required, this.validator.noPuedeSerRepetido]],
-    email: ['', [Validators.required, Validators.pattern(patronEmail)]],
-    password: ['', [Validators.required, Validators.minLength(6)]],
-    confirmarPassword: ['', [Validators.required]],
-  });
+  formulario: FormGroup = this.formBuild.group(
+    {
+      nombre: [
+        '',
+        [Validators.required, Validators.pattern(patronNombreYapellido)],
+      ],
+      userName: ['', [Validators.required, this.validator.noPuedeSerRepetido]],
+      email: ['', [Validators.required, Validators.pattern(patronEmail)]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmarPassword: ['', [Validators.required]],
+    },
+    {
+      validators: this.validator.camposIguales('password', 'confirmarPassword'),
+    }
+  );
 
   constructor(
     private formBuild: FormBuilder,
